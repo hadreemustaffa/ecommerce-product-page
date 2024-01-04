@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import NavigationBar from "../NavigationBar/NavigationBar";
+import Cart from "./Cart";
 
 import brandLogo from "/images/logo.svg";
 import imgAvatar from "/images/image-avatar.png";
@@ -30,18 +31,14 @@ function Header({ isEmpty, itemCount }: Content) {
       <div className="flex flex-row gap-6">
         <button onClick={handleOpen} className="relative">
           <img src={iconCart} width={22} height={22} alt="" />
-          {isEmpty ? (
+          {isEmpty && (
             <p className="absolute -right-2 -top-1 rounded-2xl bg-orange px-2 text-sm text-white">
               {itemCount}
             </p>
-          ) : null}
+          )}
         </button>
 
-        {isOpen && (
-          <div className="absolute left-4">
-            <p>Cart</p>
-          </div>
-        )}
+        {isOpen && <Cart />}
 
         <img src={imgAvatar} width={22} height={22} alt="" />
       </div>
