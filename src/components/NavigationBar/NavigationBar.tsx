@@ -3,7 +3,7 @@ import { useState } from "react";
 import menuIconOpen from "/images/icon-menu.svg";
 import menuIconClose from "/images/icon-close.svg";
 
-function NavigationBar() {
+const NavigationBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleToggle() {
@@ -48,6 +48,6 @@ function NavigationBar() {
       </div>
     </>
   );
-}
+};
 
 export default NavigationBar;
