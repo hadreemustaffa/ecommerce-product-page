@@ -12,7 +12,7 @@ interface Content {
   itemCount: number;
 }
 
-function Header({ isEmpty, itemCount }: Content) {
+const Header = ({ isEmpty, itemCount }: Content) => {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleOpen() {
@@ -38,12 +38,12 @@ function Header({ isEmpty, itemCount }: Content) {
           )}
         </button>
 
-        {isOpen && <Cart />}
+        {isOpen && <Cart itemCount={itemCount} />}
 
         <img src={imgAvatar} width={22} height={22} alt="" />
       </div>
     </header>
   );
-}
+};
 
 export default Header;

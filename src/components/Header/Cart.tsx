@@ -1,7 +1,11 @@
 import productImg from "/images/image-product-1-thumbnail.jpg";
 import iconDelete from "/images/icon-delete.svg";
 
-function Cart() {
+interface CartProps {
+  itemCount: number;
+}
+
+function Cart({ itemCount }: CartProps) {
   return (
     <div className="absolute left-0 top-[4.5rem] z-[1] w-full">
       <div className="m-2 h-64 overflow-hidden rounded-lg  bg-white shadow-md">
@@ -19,7 +23,7 @@ function Cart() {
             <div className="flex flex-col text-grayish-blue-dark">
               <p>Fall Limited Edition Sneakers</p>
               <div className="flex flex-row gap-2">
-                <p>$125.00 x 3</p>
+                <p>$125.00 x {itemCount}</p>
                 <p className="font-bold text-dark-blue">$375.00</p>
               </div>
             </div>
