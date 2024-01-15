@@ -1,57 +1,39 @@
-import iconNext from "/images/icon-next.svg";
-import iconPrevious from "/images/icon-previous.svg";
+import { PropsWithChildren } from "react";
+import { ProductImage } from "./ProductImage";
+import { DISCOUNT, DISCOUNTED_PRICE, ORIGINAL_PRICE } from "../../constants";
 
-interface ButtonProps {
-  side: string;
-  icon: string;
-}
-
-function Button({ side, icon }: ButtonProps) {
-  return (
-    <button
-      type="button"
-      className={`absolute md:hidden ${side}-0 top-0 flex h-full items-center p-4`}
-    >
-      <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-white">
-        <img src={icon} width={10} height={14} alt="" />
-      </div>
-    </button>
-  );
-}
-
-function ProductImage() {
-  const id: number[] = [1, 2, 3, 4];
-  const thumbnail: string[] = [];
-  const image: string[] = [];
-
-  const thumbnailMap = id.map(
-    (id) => `/images/image-product-${id}-thumbnail.jpg`,
-  );
-  const imageMap = id.map((id) => `/images/image-product-${id}.jpg`);
-
-  thumbnail.push(...thumbnailMap);
-  image.push(...imageMap);
-
-  return (
-    <div className="relative">
-      <Button side={"left"} icon={iconPrevious} />
-      <img src={image[0]} alt="" />
-      <Button side={"right"} icon={iconNext} />
-    </div>
-  );
-}
-
-function ProductDetails() {
-  return <div></div>;
-}
-
-function Product() {
+const Product = ({ children }: PropsWithChildren) => {
   return (
     <>
       <ProductImage />
-      <ProductDetails />
+
+      <div className="flex flex-col gap-4 p-6">
+        <div className="flex flex-col gap-4">
+          <p className="font-bold text-orange">SNEAKER COMPANY</p>
+          <h2 className="text-xl font-bold">Fall Limited Edition Sneakers</h2>
+          <p className="text-grayish-blue-dark">
+            These low-profile sneakers are your perfect casual wear companion.
+            Featuring a durable rubber outer sole, they'll withstand everything
+            the weather can offer.
+          </p>
+        </div>
+        <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-4">
+            <h2 className="text-xl font-bold">
+              ${DISCOUNTED_PRICE.toFixed(2)}
+            </h2>
+            <p className="rounded-md bg-pale-orange px-2 font-bold text-orange">
+              {DISCOUNT * 100}%
+            </p>
+          </div>
+          <p className="font-bold text-grayish-blue line-through">
+            ${ORIGINAL_PRICE.toFixed(2)}
+          </p>
+        </div>
+        {children}
+      </div>
     </>
   );
-}
+};
 
 export default Product;

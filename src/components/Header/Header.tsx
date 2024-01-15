@@ -1,18 +1,17 @@
 import { useState } from "react";
 
 import NavigationBar from "../NavigationBar/NavigationBar";
-import Cart from "./Cart";
 
 import brandLogo from "/images/logo.svg";
 import imgAvatar from "/images/image-avatar.png";
 import iconCart from "/images/icon-cart.svg";
 
 interface Content {
-  isEmpty: boolean;
-  itemCount: number;
+  count: number;
+  children: React.ReactNode;
 }
 
-const Header = ({ isEmpty, itemCount }: Content) => {
+const Header = ({ count, children }: Content) => {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleOpen() {
@@ -31,14 +30,15 @@ const Header = ({ isEmpty, itemCount }: Content) => {
       <div className="flex flex-row gap-6">
         <button onClick={handleOpen} className="relative">
           <img src={iconCart} width={22} height={22} alt="" />
-          {isEmpty && (
+
+          {count === 0 ? null : (
             <p className="absolute -right-2 -top-1 rounded-2xl bg-orange px-2 text-sm text-white">
-              {itemCount}
+              {count}
             </p>
           )}
         </button>
 
-        {isOpen && <Cart itemCount={itemCount} />}
+        {isOpen && children}
 
         <img src={imgAvatar} width={22} height={22} alt="" />
       </div>
