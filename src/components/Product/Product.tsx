@@ -4,7 +4,7 @@ import { DISCOUNT, DISCOUNTED_PRICE, ORIGINAL_PRICE } from "../../constants";
 
 const Product = ({ children }: PropsWithChildren) => {
   return (
-    <>
+    <main>
       <ProductImage />
 
       <div className="flex flex-col gap-4 p-6">
@@ -32,7 +32,7 @@ const Product = ({ children }: PropsWithChildren) => {
         </div>
         {children}
       </div>
-    </>
+    </main>
   );
 };
 

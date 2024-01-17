@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 import "./App.css";
 
 import Header from "./components/Header/Header";
 import Cart from "./components/Cart/Cart";
-import { CartContent } from "./components/Cart/CartContent";
+import { CartItem } from "./components/Cart/CartItem";
 import Product from "./components/Product/Product";
 import { ProductFormInput } from "./components/Product/ProductFormInput";
 import { DISCOUNTED_PRICE } from "./constants";
@@ -25,9 +25,15 @@ export default function App() {
     setItemCount(0);
   };
 
-  const handleSubmit = (e) => {
+  interface CustomElement extends HTMLFormElement {
+    quantityInput: HTMLInputElement;
+  }
+
+  const handleSubmit = (e: FormEvent<CustomElement>) => {
     e.preventDefault();
-    setItemCount((prev) => prev + Number(e.target.quantityInput.value));
+    const target = e.currentTarget.quantityInput;
+
+    setItemCount((prev) => prev + Number(target.value));
     if (itemCount !== -1) {
       setIsEmpty(false);
     } else {
@@ -38,12 +44,13 @@ export default function App() {
   return (
     <>
       <Header count={itemCount}>
-        <Cart checkout={handleCheckout}>
-          <CartContent
+        <Cart>
+          <CartItem
             count={itemCount}
             price={TOTAL_PRICE}
             isEmpty={isEmpty}
-            onClick={handleRemove}
+            remove={handleRemove}
+            checkout={handleCheckout}
           />
         </Cart>
       </Header>
