@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { FormEventHandler, useState } from "react";
 
 import { ItemCountButton } from "../Button/Button";
 import iconMinus from "/images/icon-minus.svg";
 import iconPlus from "/images/icon-plus.svg";
 
 interface ProductFormInputProps {
-  onSubmit: (e) => void;
+  onSubmit: FormEventHandler<HTMLFormElement>;
 }
 
 export const ProductFormInput = ({ onSubmit }: ProductFormInputProps) => {
@@ -19,6 +19,14 @@ export const ProductFormInput = ({ onSubmit }: ProductFormInputProps) => {
     setCount((prev) => prev - 1);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const targetValue = Number(e.target.value);
+    const maxValue = Number(e.target.max);
+    setCount(Number(targetValue));
+    if (targetValue > 99) {
+      setCount(maxValue);
+    }
+  };
   return (
     <form
       action=""
@@ -38,11 +46,12 @@ export const ProductFormInput = ({ onSubmit }: ProductFormInputProps) => {
           type="number"
           id="quantityInput"
           aria-describedby="product quantity to add to cart"
-          className="bg-[transparent] text-center"
+          className="bg-[transparent] text-center font-bold"
           placeholder="0"
           min={1}
+          max={99}
           value={count}
-          onChange={(e) => setCount(Number(e.target.value))}
+          onChange={handleChange}
           required
         />
         <ItemCountButton iconPath={iconPlus} onClick={increment} />
