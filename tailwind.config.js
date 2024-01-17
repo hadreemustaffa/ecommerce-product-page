@@ -21,7 +21,7 @@ export default {
     fontSize: {
       xl: "2rem",
       lg: "1.375rem",
-      md: "1rem",
+      md: "0.938rem",
       sm: "0.563rem",
     },
   },
