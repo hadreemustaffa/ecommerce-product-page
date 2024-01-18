@@ -10,18 +10,18 @@ import { ProductFormInput } from "./components/Product/ProductFormInput";
 import { DISCOUNTED_PRICE } from "./constants";
 
 export default function App() {
-  const [isEmpty, setIsEmpty] = useState(true);
   const [itemCount, setItemCount] = useState(0);
+  const [isEmpty, setIsEmpty] = useState("empty");
 
   const TOTAL_PRICE = (DISCOUNTED_PRICE * itemCount).toFixed(2);
 
   const handleRemove = () => {
-    setIsEmpty(true);
+    setIsEmpty("empty");
     setItemCount(0);
   };
 
   const handleCheckout = () => {
-    setIsEmpty(true);
+    setIsEmpty("checkout");
     setItemCount(0);
   };
 
@@ -32,13 +32,8 @@ export default function App() {
   const handleSubmit = (e: FormEvent<CustomElement>) => {
     e.preventDefault();
     const target = e.currentTarget.quantityInput;
-
     setItemCount((prev) => prev + Number(target.value));
-    if (itemCount !== -1) {
-      setIsEmpty(false);
-    } else {
-      setIsEmpty(true);
-    }
+    setIsEmpty("added");
   };
 
   return (
@@ -48,7 +43,7 @@ export default function App() {
           <CartItem
             count={itemCount}
             price={TOTAL_PRICE}
-            isEmpty={isEmpty}
+            state={isEmpty}
             remove={handleRemove}
             checkout={handleCheckout}
           />

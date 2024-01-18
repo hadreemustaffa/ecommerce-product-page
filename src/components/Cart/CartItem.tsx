@@ -1,29 +1,32 @@
 import productImg from "/images/image-product-1-thumbnail.jpg";
 import iconDelete from "/images/icon-delete.svg";
 import { DISCOUNTED_PRICE } from "../../constants";
+import { PropsWithChildren } from "react";
 
 interface CartItemProps {
   count: number;
   price: string;
-  isEmpty: boolean;
+  state: string;
   remove: () => void;
   checkout: () => void;
 }
 
+const CartMessage = ({ children }: PropsWithChildren) => {
+  return <p className="py-12">{children}</p>;
+};
+
 export const CartItem = ({
   count,
   price,
-  isEmpty,
+  state,
   remove,
   checkout,
 }: CartItemProps) => {
   return (
     <div className="flex w-full flex-col items-center justify-between gap-6 ">
-      {isEmpty ? (
-        <>
-          <p id="cartMessage">Your cart is empty</p>
-        </>
-      ) : (
+      {state === "empty" && <CartMessage>Your cart is empty</CartMessage>}
+
+      {state === "added" && (
         <>
           <div className="flex w-full flex-row justify-between gap-3">
             <img
@@ -54,6 +57,10 @@ export const CartItem = ({
             Checkout
           </button>
         </>
+      )}
+
+      {state === "checkout" && (
+        <CartMessage>Thank you for your purchase!</CartMessage>
       )}
     </div>
   );
