@@ -6,7 +6,7 @@ import brandLogo from "/images/logo.svg";
 import imgAvatar from "/images/image-avatar.png";
 import iconCart from "/images/icon-cart.svg";
 
-interface Content {
+interface HeaderProps {
   count: number;
   children: React.ReactNode;
 }
@@ -21,7 +21,7 @@ const BrandLogo = () => {
   );
 };
 
-const Header = ({ count, children }: Content) => {
+const Header = ({ count, children }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleOpen() {
