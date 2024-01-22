@@ -31,12 +31,12 @@ export const ProductFormInput = ({ onSubmit }: ProductFormInputProps) => {
     <form
       action=""
       onSubmit={onSubmit}
-      className="flex flex-col justify-center gap-4"
+      className="flex flex-col justify-center gap-4 md:flex-row md:justify-between"
     >
       <label htmlFor="quantityInput" className="sr-only">
         Quantity:
       </label>
-      <div className="flex flex-row justify-between rounded-lg bg-grayish-blue bg-opacity-10 px-6 py-4">
+      <div className="flex flex-row justify-between rounded-lg bg-grayish-blue bg-opacity-10 px-6 py-4 md:w-3/6">
         <ItemCountButton
           disabled={count === 0}
           iconPath={iconMinus}
@@ -57,7 +57,7 @@ export const ProductFormInput = ({ onSubmit }: ProductFormInputProps) => {
         <ItemCountButton iconPath={iconPlus} onClick={increment} />
       </div>
       <button
-        className="flex cursor-pointer flex-row justify-center gap-2 rounded-lg bg-orange p-4 font-bold text-white transition-all disabled:pointer-events-none disabled:bg-grayish-blue"
+        className="flex cursor-pointer flex-row justify-center gap-2 rounded-lg bg-orange p-4 font-bold text-white transition-all disabled:pointer-events-none disabled:bg-grayish-blue md:w-3/6"
         disabled={count === 0}
         type="submit"
       >

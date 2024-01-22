@@ -29,13 +29,13 @@ const Header = ({ count, children }: HeaderProps) => {
   }
 
   return (
-    <header className="flex flex-row justify-between gap-12 p-6 xl:border-b-grayish-blue xl:px-0 xl:pb-8 xl:pt-7">
-      <div className="flex flex-row items-center gap-6 xl:flex-row-reverse xl:gap-14 ">
+    <header className="flex flex-row justify-between gap-12 p-6 md:px-0 lg:h-28 lg:border-b-[1px] lg:border-b-grayish-blue lg:p-0">
+      <div className="flex flex-row items-center gap-6 lg:flex-row-reverse lg:gap-14 ">
         <NavigationBar />
         <BrandLogo />
       </div>
 
-      <div className="flex flex-row gap-6">
+      <div className="flex flex-row items-center gap-6">
         <button onClick={handleOpen} className="relative">
           <img src={iconCart} width={22} height={22} alt="" />
 
@@ -48,7 +48,7 @@ const Header = ({ count, children }: HeaderProps) => {
 
         {isOpen && children}
 
-        <img src={imgAvatar} width={22} height={22} alt="" />
+        <img src={imgAvatar} className="h-6 w-6 lg:h-12 lg:w-12" alt="" />
       </div>
     </header>
   );

@@ -4,10 +4,10 @@ import { DISCOUNT, DISCOUNTED_PRICE, ORIGINAL_PRICE } from "../../constants";
 
 const Product = ({ children }: PropsWithChildren) => {
   return (
-    <main>
+    <main className="md:max-w-xl lg:flex lg:max-w-none  lg:flex-row lg:justify-between lg:gap-20 lg:px-10 lg:py-20 lg:pt-20">
       <ProductImage />
 
-      <div className="flex flex-col gap-4 p-6">
+      <div className="flex flex-col justify-center gap-4 p-6 md:px-0 lg:basis-1/2">
         <div className="flex flex-col gap-4">
           <p className="font-bold text-orange">SNEAKER COMPANY</p>
           <h2 className="text-xl font-bold">Fall Limited Edition Sneakers</h2>
@@ -17,7 +17,7 @@ const Product = ({ children }: PropsWithChildren) => {
             the weather can offer.
           </p>
         </div>
-        <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-row items-center justify-between lg:flex-col lg:items-start">
           <div className="flex flex-row items-center gap-4">
             <h2 className="text-xl font-bold">
               ${DISCOUNTED_PRICE.toFixed(2)}

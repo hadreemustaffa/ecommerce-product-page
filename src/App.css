@@ -51,3 +51,7 @@
     @apply appearance-none;
   }
 }
+
+.active {
+  outline: 4px solid orange;
+}
