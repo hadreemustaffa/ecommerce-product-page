@@ -11,29 +11,28 @@ import { DISCOUNTED_PRICE } from "./constants";
 
 export default function App() {
   const [itemCount, setItemCount] = useState(0);
-  const [isEmpty, setIsEmpty] = useState("empty");
+  const [cartState, setCartState] = useState("empty");
 
   const TOTAL_PRICE = (DISCOUNTED_PRICE * itemCount).toFixed(2);
 
   const handleRemove = () => {
-    setIsEmpty("empty");
+    setCartState("empty");
     setItemCount(0);
   };
 
   const handleCheckout = () => {
-    setIsEmpty("checkout");
+    setCartState("checkout");
     setItemCount(0);
+    setTimeout(() => {
+      setCartState("empty");
+    }, 2000);
   };
 
-  interface CustomElement extends HTMLFormElement {
-    quantityInput: HTMLInputElement;
-  }
-
-  const handleSubmit = (e: FormEvent<CustomElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const target = e.currentTarget.quantityInput;
     setItemCount((prev) => prev + Number(target.value));
-    setIsEmpty("added");
+    setCartState("added");
   };
 
   return (
@@ -43,7 +42,7 @@ export default function App() {
           <CartItem
             count={itemCount}
             price={TOTAL_PRICE}
-            state={isEmpty}
+            state={cartState}
             remove={handleRemove}
             checkout={handleCheckout}
           />
@@ -51,7 +50,7 @@ export default function App() {
       </Header>
 
       <Product>
-        <ProductFormInput onSubmit={handleSubmit} />
+        <ProductFormInput onSubmit={handleSubmit} state={cartState} />
       </Product>
     </>
   );
