@@ -5,10 +5,14 @@ import iconMinus from "/images/icon-minus.svg";
 import iconPlus from "/images/icon-plus.svg";
 
 interface ProductFormInputProps {
+  state: string;
   onSubmit: FormEventHandler<HTMLFormElement>;
 }
 
-export const ProductFormInput = ({ onSubmit }: ProductFormInputProps) => {
+export const ProductFormInput = ({
+  onSubmit,
+  state,
+}: ProductFormInputProps) => {
   const [count, setCount] = useState(0);
 
   const increment = () => {
@@ -36,8 +40,9 @@ export const ProductFormInput = ({ onSubmit }: ProductFormInputProps) => {
       <label htmlFor="quantityInput" className="sr-only">
         Quantity:
       </label>
-      <div className="flex flex-row justify-between rounded-lg bg-grayish-blue bg-opacity-10 px-6 py-4 md:w-3/6">
+      <div className="flex flex-row justify-between rounded-lg bg-grayish-blue bg-opacity-10 px-6 py-4 md:w-2/5">
         <ItemCountButton
+          label="Decrease Item Count"
           disabled={count === 0}
           iconPath={iconMinus}
           onClick={decrement}
@@ -45,20 +50,25 @@ export const ProductFormInput = ({ onSubmit }: ProductFormInputProps) => {
         <input
           type="number"
           id="quantityInput"
-          aria-describedby="product quantity to add to cart"
-          className="bg-[transparent] text-center font-bold"
+          aria-describedby="quantity to buy"
+          className="w-fit bg-[transparent] text-center font-bold"
           placeholder="0"
           min={1}
           max={99}
           value={count}
+          size={2}
           onChange={handleChange}
           required
         />
-        <ItemCountButton iconPath={iconPlus} onClick={increment} />
+        <ItemCountButton
+          label="Increase Item Count"
+          iconPath={iconPlus}
+          onClick={increment}
+        />
       </div>
       <button
-        className="flex cursor-pointer flex-row justify-center gap-2 rounded-lg bg-orange p-4 font-bold text-white transition-all disabled:pointer-events-none disabled:bg-grayish-blue md:w-3/6"
-        disabled={count === 0}
+        className="flex cursor-pointer flex-row justify-center gap-2 rounded-lg bg-orange p-4 font-bold text-white transition-all disabled:pointer-events-none disabled:bg-grayish-blue md:w-3/5"
+        disabled={count === 0 || state === "checkout"}
         type="submit"
       >
         <svg width="22" height="20" xmlns="http://www.w3.org/2000/svg">
