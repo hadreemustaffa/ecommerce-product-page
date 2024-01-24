@@ -45,13 +45,20 @@
   }
 }
 
-@layer utilities {
+@layer base {
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
     @apply appearance-none;
   }
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
 }
 
-.active {
-  outline: 4px solid orange;
+@layer utilities {
+  .active {
+    outline-offset: -1px;
+    outline: 4px solid hsl(26, 100%, 55%);
+  }
 }
