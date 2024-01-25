@@ -5,6 +5,7 @@ import { ProductImageButton } from "../Button/Button";
 import iconNext from "/images/icon-next.svg";
 import iconPrevious from "/images/icon-previous.svg";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useImageURL } from "../../hooks/useImagePath";
 
 interface ImageThumbnailCollectionProps {
   id: number[];
@@ -15,21 +16,21 @@ const ImageThumbnailCollection = ({
   id,
   onClick,
 }: ImageThumbnailCollectionProps) => {
+  const ThumbnailPath = (thumbnailId: number) =>
+    useImageURL(
+      `/ecommerce-product-page/images/image-product-${thumbnailId}-thumbnail.jpg`,
+    );
+
   return (
     <>
       <ul className={`hidden md:flex md:flex-row md:justify-between`}>
         {id.map((id, index) => (
           <li
             key={index}
-            className="overflow-hidden rounded-xl"
+            className="thumbnail-container overflow-hidden rounded-xl"
             onClick={(e) => onClick(e, index)}
           >
-            <img
-              width={90}
-              height={90}
-              src={`/images/image-product-${id}-thumbnail.jpg`}
-              alt=""
-            />
+            <img width={90} height={90} src={ThumbnailPath(id)} alt="" />
           </li>
         ))}
       </ul>
@@ -44,32 +45,23 @@ export const ProductImage = () => {
 
   const id = [1, 2, 3, 4];
   const lastIndex = id.length - 1;
-  const activeImagePath = `/images/image-product-${displayImageIndex + 1}.jpg`;
-  const activeThumbnailPath = `/images/image-product-${
-    displayImageIndex + 1
-  }-thumbnail.jpg`;
+  const activeImagePath = useImageURL(
+    `/ecommerce-product-page/images/image-product-${displayImageIndex + 1}.jpg`,
+  );
 
   useEffect(() => {
     const addActiveClass = () => {
-      const activeImageThumbnail = document.querySelector(
-        `li > img[src="${activeThumbnailPath}"]`,
+      const imageThumbnailContainer = document.querySelectorAll(
+        `li.thumbnail-container`,
       );
 
-      activeImageThumbnail?.parentElement?.classList.add("active");
+      imageThumbnailContainer[displayImageIndex]?.classList.add("active");
     };
 
-    window.addEventListener("resize", () => {
+    if (!isMobile) {
       addActiveClass();
-    });
-    window.addEventListener("load", () => {
-      addActiveClass();
-    });
-
-    return () => {
-      window.removeEventListener("resize", addActiveClass);
-      window.removeEventListener("load", addActiveClass);
-    };
-  }, [activeThumbnailPath]);
+    }
+  }, [isMobile, displayImageIndex]);
 
   const handleShowPreviousImage = () => {
     if (displayImageIndex === 0) {
