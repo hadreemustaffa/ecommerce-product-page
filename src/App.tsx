@@ -37,8 +37,8 @@ export default function App() {
 
   return (
     <>
-      <Header count={itemCount}>
-        <Cart>
+      <Header>
+        <Cart count={itemCount}>
           <CartItem
             count={itemCount}
             price={TOTAL_PRICE}
