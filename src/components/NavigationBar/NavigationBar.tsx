@@ -35,7 +35,7 @@ const NavigationBar = () => {
 
       <div
         id="navBar"
-        className={`absolute left-0 top-0 z-10 w-full transition-transform md:static md:h-full md:translate-x-0 ${
+        className={`absolute left-0 top-0 z-10 w-full transition-transform md:static md:z-auto md:h-full md:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
