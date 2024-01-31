@@ -6,43 +6,16 @@ import iconNext from "/images/icon-next.svg";
 import iconPrevious from "/images/icon-previous.svg";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { useImageURL } from "../../hooks/useImagePath";
+import { ProductThumbnails } from "./ProductThumbnails";
 
-interface ImageThumbnailCollectionProps {
-  id: number[];
-  onClick: (e: React.MouseEvent<HTMLElement>, index: number) => void;
+interface ProductImageProps {
+  onClick: () => void;
 }
 
-const ImageThumbnailCollection = ({
-  id,
-  onClick,
-}: ImageThumbnailCollectionProps) => {
-  const ThumbnailPath = (thumbnailId: number) =>
-    useImageURL(
-      `/ecommerce-product-page/images/image-product-${thumbnailId}-thumbnail.jpg`,
-    );
-
-  return (
-    <>
-      <ul className={`hidden md:flex md:flex-row md:justify-between`}>
-        {id.map((id, index) => (
-          <li
-            key={index}
-            className="thumbnail-container overflow-hidden rounded-xl"
-            onClick={(e) => onClick(e, index)}
-          >
-            <img width={90} height={90} src={ThumbnailPath(id)} alt="" />
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-};
-
-export const ProductImage = () => {
+export const ProductImage = ({ onClick }: ProductImageProps) => {
   const [displayImageIndex, setDisplayImageIndex] = useState(0);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
-
   const id = [1, 2, 3, 4];
   const lastIndex = id.length - 1;
   const activeImagePath = useImageURL(
@@ -122,11 +95,9 @@ export const ProductImage = () => {
               className="md:rounded-xl lg:max-w-md "
               src={activeImagePath}
               alt=""
+              onClick={onClick}
             />
-            <ImageThumbnailCollection
-              id={id}
-              onClick={handleSelectImageThumbnail}
-            />
+            <ProductThumbnails id={id} onClick={handleSelectImageThumbnail} />
           </>
         )}
       </div>
