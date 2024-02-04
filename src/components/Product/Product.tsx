@@ -1,11 +1,11 @@
 import { PropsWithChildren } from "react";
 import { DISCOUNT, DISCOUNTED_PRICE, ORIGINAL_PRICE } from "../../constants";
-import { ProductLightbox } from "./ProductLightbox";
+import { ProductImage } from "./ProductImage";
 
 const Product = ({ children }: PropsWithChildren) => {
   return (
     <main className="md:max-w-xl lg:flex lg:max-w-none  lg:flex-row lg:justify-between lg:gap-16 lg:px-10 lg:py-20 lg:pt-20 xl:gap-32">
-      <ProductLightbox />
+      <ProductImage />
 
       <div className="flex flex-col justify-center gap-4 p-6 md:px-0 lg:basis-1/2">
         <div className="flex flex-col gap-4">

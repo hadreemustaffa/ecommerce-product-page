@@ -7,15 +7,14 @@ import iconPrevious from "/images/icon-previous.svg";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { useImageURL } from "../../hooks/useImagePath";
 import { ProductThumbnails } from "./ProductThumbnails";
+import { ProductLightbox } from "./ProductLightbox";
 
-interface ProductImageProps {
-  onClick: () => void;
-}
-
-export const ProductImage = ({ onClick }: ProductImageProps) => {
+export const ProductImage = () => {
   const [displayImageIndex, setDisplayImageIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const id = [1, 2, 3, 4];
   const lastIndex = id.length - 1;
   const activeImagePath = useImageURL(
@@ -27,14 +26,15 @@ export const ProductImage = ({ onClick }: ProductImageProps) => {
       const imageThumbnailContainer = document.querySelectorAll(
         `li.thumbnail-container`,
       );
-
+      const activeThumbnail = document.querySelector(".active");
+      activeThumbnail?.classList.remove("active");
       imageThumbnailContainer[displayImageIndex]?.classList.add("active");
     };
 
     if (!isMobile) {
       addActiveClass();
     }
-  }, [isMobile, displayImageIndex]);
+  }, [displayImageIndex, isMobile]);
 
   const handleShowPreviousImage = () => {
     if (displayImageIndex === 0) {
@@ -66,6 +66,23 @@ export const ProductImage = ({ onClick }: ProductImageProps) => {
     setDisplayImageIndex(index);
   };
 
+  const handleSelectLightboxThumbnail = (
+    e: React.MouseEvent<HTMLElement>,
+    index: number,
+  ) => {
+    const activeLightboxThumbnail = document.querySelector(".lightbox.active");
+    activeLightboxThumbnail?.classList.remove("active");
+    e.currentTarget.classList.add("active");
+    setDisplayImageIndex(index);
+  };
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <div className="relative flex justify-center md:flex-col md:gap-8 lg:max-w-fit">
@@ -95,12 +112,22 @@ export const ProductImage = ({ onClick }: ProductImageProps) => {
               className="md:rounded-xl lg:max-w-md "
               src={activeImagePath}
               alt=""
-              onClick={onClick}
+              onClick={handleOpen}
             />
             <ProductThumbnails id={id} onClick={handleSelectImageThumbnail} />
           </>
         )}
       </div>
+
+      {isOpen && isDesktop && (
+        <ProductLightbox imagePath={activeImagePath} close={handleClose}>
+          <ProductThumbnails
+            id={id}
+            addClass="lightbox"
+            onClick={handleSelectLightboxThumbnail}
+          />
+        </ProductLightbox>
+      )}
     </>
   );
 };
