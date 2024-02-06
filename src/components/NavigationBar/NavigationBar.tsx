@@ -9,18 +9,25 @@ const NavigationBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
+  const el = document.getElementById("navToggle");
+
   function handleToggle() {
     setIsOpen(!isOpen);
+    el?.setAttribute(
+      "aria-expanded",
+      `${!(el.getAttribute("aria-expanded") === "true")}`,
+    );
   }
 
   return (
-    <>
+    <nav className="flex h-full items-center">
       {isMobile && (
         <button
+          id="navToggle"
           onClick={handleToggle}
           className="relative z-20 w-fit cursor-pointer lg:hidden"
           aria-label="Navigation Menu"
-          aria-controls="navBar"
+          aria-controls="navMenu"
           aria-expanded="false"
           type="button"
         >
@@ -34,12 +41,12 @@ const NavigationBar = () => {
       )}
 
       <div
-        id="navBar"
-        className={`absolute left-0 top-0 z-10 w-full transition-transform md:static md:z-auto md:h-full md:translate-x-0 ${
+        id="navMenu"
+        className={`absolute left-0 top-0 z-10 w-full bg-black bg-opacity-75 transition-transform md:static md:z-auto md:h-full md:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <ul className="flex h-screen w-4/6 flex-col gap-4 bg-white px-6 pt-20 md:h-full md:w-full md:flex-row md:justify-between md:gap-2 md:px-0 md:pt-0">
+        <ul className="flex h-screen w-4/6 flex-col gap-4 bg-white px-6 pt-20 md:h-full md:w-full md:flex-row md:justify-between md:gap-2 md:px-0 md:pt-0 lg:gap-8">
           {navLinks.map((link) => (
             <li
               key={link}
@@ -54,9 +61,8 @@ const NavigationBar = () => {
             </li>
           ))}
         </ul>
-        <div className="absolute left-0 top-0 -z-10 h-full w-full  bg-black opacity-75 lg:hidden"></div>
       </div>
-    </>
+    </nav>
   );
 };
 
