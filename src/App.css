@@ -59,6 +59,6 @@
 @layer utilities {
   .active {
     outline-offset: -1px;
-    outline: 4px solid hsl(26, 100%, 55%);
+    outline: 3px solid hsl(26, 100%, 55%);
   }
 }
