@@ -9,10 +9,7 @@ interface ProductFormInputProps {
   onSubmit: FormEventHandler<HTMLFormElement>;
 }
 
-export const ProductFormInput = ({
-  onSubmit,
-  state,
-}: ProductFormInputProps) => {
+export const ProductForm = ({ onSubmit, state }: ProductFormInputProps) => {
   const [count, setCount] = useState(0);
 
   const increment = () => {

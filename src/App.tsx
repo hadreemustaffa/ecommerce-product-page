@@ -6,7 +6,7 @@ import Header from "./components/Header/Header";
 import Cart from "./components/Cart/Cart";
 import { CartItem } from "./components/Cart/CartItem";
 import Product from "./components/Product/Product";
-import { ProductFormInput } from "./components/Product/ProductFormInput";
+import { ProductForm } from "./components/Product/ProductForm";
 import { DISCOUNTED_PRICE } from "./constants";
 
 export default function App() {
@@ -50,7 +50,7 @@ export default function App() {
       </Header>
 
       <Product>
-        <ProductFormInput onSubmit={handleSubmit} state={cartState} />
+        <ProductForm onSubmit={handleSubmit} state={cartState} />
       </Product>
     </>
   );
