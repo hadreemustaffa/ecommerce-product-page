@@ -23,18 +23,12 @@ export const ProductImage = () => {
 
   useEffect(() => {
     const addActiveClass = () => {
-      const imageThumbnailContainer = document.querySelectorAll(
-        `li.thumbnail-container`,
-      );
-      const activeThumbnail = document.querySelector(".active");
-      activeThumbnail?.classList.remove("active");
+      const imageThumbnailContainer = document.querySelectorAll(`.image`);
       imageThumbnailContainer[displayImageIndex]?.classList.add("active");
     };
 
-    if (!isMobile) {
-      addActiveClass();
-    }
-  }, [displayImageIndex, isMobile]);
+    addActiveClass();
+  });
 
   const handleShowPreviousImage = () => {
     if (displayImageIndex === 0) {
@@ -66,18 +60,10 @@ export const ProductImage = () => {
     setDisplayImageIndex(index);
   };
 
-  const handleSelectLightboxThumbnail = (
-    e: React.MouseEvent<HTMLElement>,
-    index: number,
-  ) => {
-    const activeLightboxThumbnail = document.querySelector(".lightbox.active");
-    activeLightboxThumbnail?.classList.remove("active");
-    e.currentTarget.classList.add("active");
-    setDisplayImageIndex(index);
-  };
-
   const handleOpen = () => {
-    setIsOpen(true);
+    if (isDesktop) {
+      setIsOpen(true);
+    }
   };
   const handleClose = () => {
     setIsOpen(false);
@@ -91,6 +77,7 @@ export const ProductImage = () => {
             <ProductImageButton
               label="Show Previous Image"
               side={"left-0"}
+              padding="p-4"
               onClick={handleShowPreviousImage}
               iconPath={iconPrevious}
             />
@@ -102,6 +89,7 @@ export const ProductImage = () => {
             <ProductImageButton
               label="Show Next Image"
               side={"right-0"}
+              padding="p-4"
               onClick={handleShowNextImage}
               iconPath={iconNext}
             />
@@ -114,19 +102,21 @@ export const ProductImage = () => {
               alt=""
               onClick={handleOpen}
             />
-            <ProductThumbnails id={id} onClick={handleSelectImageThumbnail} />
+            <ProductThumbnails
+              id={id}
+              addClass="image"
+              onClick={handleSelectImageThumbnail}
+            />
           </>
         )}
       </div>
 
       {isOpen && isDesktop && (
-        <ProductLightbox imagePath={activeImagePath} close={handleClose}>
-          <ProductThumbnails
-            id={id}
-            addClass="lightbox"
-            onClick={handleSelectLightboxThumbnail}
-          />
-        </ProductLightbox>
+        <ProductLightbox
+          id={id}
+          index={displayImageIndex}
+          close={handleClose}
+        />
       )}
     </>
   );

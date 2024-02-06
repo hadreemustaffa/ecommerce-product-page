@@ -2,7 +2,7 @@ import { useImageURL } from "../../hooks/useImagePath";
 
 interface ImageThumbnailCollectionProps {
   id: number[];
-  addClass?: "lightbox";
+  addClass: "lightbox" | "image";
   onClick: (e: React.MouseEvent<HTMLElement>, index: number) => void;
 }
 

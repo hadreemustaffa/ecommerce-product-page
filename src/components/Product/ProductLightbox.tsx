@@ -1,16 +1,63 @@
-import { ReactNode } from "react";
+import { useEffect, useState } from "react";
+
+import { useImageURL } from "../../hooks/useImagePath";
+import { ProductImageButton } from "../Button/Button";
+import iconNext from "/images/icon-next.svg";
+import iconPrevious from "/images/icon-previous.svg";
+import { ProductThumbnails } from "./ProductThumbnails";
 
 interface ProductLightboxProps {
-  imagePath: string;
+  id: number[];
+  index: number;
   close: () => void;
-  children: ReactNode;
 }
 
-export const ProductLightbox = ({
-  imagePath,
-  close,
-  children,
-}: ProductLightboxProps) => {
+export const ProductLightbox = ({ id, close, index }: ProductLightboxProps) => {
+  const [imageIndex, setImageIndex] = useState(0);
+
+  const lastIndex = id.length - 1;
+  const activeImagePath = useImageURL(
+    `/ecommerce-product-page/images/image-product-${index + 1}.jpg`,
+  );
+
+  useEffect(() => {
+    const imageThumbnailContainer = document.querySelectorAll(`lightbox`);
+    const addActiveClass = () => {
+      imageThumbnailContainer[imageIndex]?.classList.add("active");
+    };
+    addActiveClass();
+  });
+
+  const handleShowPreviousImage = () => {
+    if (imageIndex === 0) {
+      setImageIndex(lastIndex);
+    }
+
+    if (imageIndex > 0) {
+      setImageIndex(imageIndex - 1);
+    }
+  };
+
+  const handleShowNextImage = () => {
+    if (imageIndex === lastIndex) {
+      setImageIndex(0);
+    }
+
+    if (imageIndex < lastIndex) {
+      setImageIndex(imageIndex + 1);
+    }
+  };
+
+  const handleSelectLightboxThumbnail = (
+    e: React.MouseEvent<HTMLElement>,
+    index: number,
+  ) => {
+    const activeLightboxThumbnail = document.querySelector(".lightbox.active");
+    activeLightboxThumbnail?.classList.remove("active");
+    e.currentTarget.classList.add("active");
+    setImageIndex(index);
+  };
+
   return (
     <>
       <div className="fixed left-0 top-0 z-10 flex h-screen w-screen items-center justify-center bg-black bg-opacity-75">
@@ -24,8 +71,33 @@ export const ProductLightbox = ({
               />
             </svg>
           </button>
-          <img className="md:rounded-xl lg:max-w-md " src={imagePath} alt="" />
-          {children}
+          <div className="relative w-fit">
+            <ProductImageButton
+              label="Show Previous Image"
+              side={"-left-5"}
+              padding="p-0"
+              onClick={handleShowPreviousImage}
+              iconPath={iconPrevious}
+            />
+            <img
+              className="md:rounded-xl lg:max-w-md "
+              src={activeImagePath}
+              alt=""
+            />
+            <ProductImageButton
+              label="Show Next Image"
+              side={"-right-5"}
+              padding="p-0"
+              onClick={handleShowNextImage}
+              iconPath={iconNext}
+            />
+          </div>
+
+          <ProductThumbnails
+            id={id}
+            addClass="lightbox"
+            onClick={handleSelectLightboxThumbnail}
+          />
         </div>
       </div>
     </>
