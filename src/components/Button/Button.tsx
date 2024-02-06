@@ -3,7 +3,8 @@ import { MouseEventHandler } from "react";
 interface ButtonProps {
   side?: string;
   disabled?: boolean;
-  label?: string;
+  label: string;
+  padding: string;
   iconPath: string;
   onClick: () => void | MouseEventHandler<HTMLButtonElement>;
 }
@@ -12,6 +13,7 @@ export const ProductImageButton = ({
   side,
   iconPath,
   label,
+  padding,
   onClick,
 }: ButtonProps) => {
   return (
@@ -19,7 +21,7 @@ export const ProductImageButton = ({
       type="button"
       aria-label={label}
       onClick={onClick}
-      className={`absolute ${side} top-0 flex h-full items-center p-4`}
+      className={`absolute ${side} top-0 flex h-full items-center ${padding}`}
     >
       <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-white">
         <img src={iconPath} width={10} height={14} alt="" />
