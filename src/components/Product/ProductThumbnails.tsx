@@ -22,7 +22,7 @@ export const ProductThumbnails = ({
         {id.map((id, index) => (
           <li
             key={index}
-            className={`${addClass} thumbnail-container overflow-hidden rounded-xl`}
+            className={`${addClass} thumbnail-container overflow-hidden rounded-xl hover:cursor-pointer`}
             onClick={(e) => onClick(e, index)}
           >
             <img width={90} height={90} src={ThumbnailPath(id)} alt="" />

@@ -22,8 +22,9 @@ export const ProductImage = () => {
   );
 
   useEffect(() => {
+    const imageThumbnailContainer = document.querySelectorAll(`.image`);
+
     const addActiveClass = () => {
-      const imageThumbnailContainer = document.querySelectorAll(`.image`);
       imageThumbnailContainer[displayImageIndex]?.classList.add("active");
     };
 
@@ -82,7 +83,7 @@ export const ProductImage = () => {
               iconPath={iconPrevious}
             />
             <img
-              className="md:rounded-xl lg:max-w-md "
+              className="md:rounded-xl lg:max-w-md"
               src={activeImagePath}
               alt=""
             />
@@ -97,7 +98,7 @@ export const ProductImage = () => {
         ) : (
           <>
             <img
-              className="md:rounded-xl lg:max-w-md "
+              className="hover:cursor-pointer md:rounded-xl lg:max-w-md"
               src={activeImagePath}
               alt=""
               onClick={handleOpen}
