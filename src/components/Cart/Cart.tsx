@@ -11,12 +11,11 @@ const Cart = ({ count, children }: PropsWithChildren<CartProps>) => {
   useEffect(() => {
     const el = document.getElementById("cartIcon");
 
-    if (isOpen) {
-      el?.setAttribute("aria-expanded", `${isOpen.toString()}`);
-    } else {
-      el?.setAttribute("aria-expanded", `${!isOpen.toString()}`);
+    if (!isOpen) {
+      return el?.setAttribute("aria-expanded", `${!isOpen.toString()}`);
     }
-  }, [isOpen]);
+    el?.setAttribute("aria-expanded", `${isOpen.toString()}`);
+  });
 
   function handleClick() {
     setIsOpen(!isOpen);
