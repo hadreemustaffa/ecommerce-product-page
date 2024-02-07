@@ -12,40 +12,35 @@ interface ProductLightboxProps {
   close: () => void;
 }
 
-export const ProductLightbox = ({ id, close, index }: ProductLightboxProps) => {
+export const ProductLightbox = ({ id, close }: ProductLightboxProps) => {
   const [imageIndex, setImageIndex] = useState(0);
 
-  const lastIndex = id.length - 1;
-  const activeImagePath = useImageURL(
-    `/ecommerce-product-page/images/image-product-${index + 1}.jpg`,
-  );
-
   useEffect(() => {
-    const imageThumbnailContainer = document.querySelectorAll(`lightbox`);
+    const imageThumbnailContainer = document.querySelectorAll(`.lightbox`);
+    const activeLightboxThumbnail = document.querySelector(".lightbox.active");
     const addActiveClass = () => {
+      activeLightboxThumbnail?.classList.remove("active");
       imageThumbnailContainer[imageIndex]?.classList.add("active");
     };
+
     addActiveClass();
   });
 
-  const handleShowPreviousImage = () => {
-    if (imageIndex === 0) {
-      setImageIndex(lastIndex);
-    }
+  const lastIndex = id.length - 1;
+  const activeImagePath = useImageURL(
+    `/ecommerce-product-page/images/image-product-${imageIndex + 1}.jpg`,
+  );
 
-    if (imageIndex > 0) {
-      setImageIndex(imageIndex - 1);
-    }
+  const handleShowPreviousImage = () => {
+    if (imageIndex === 0) return setImageIndex(lastIndex);
+
+    if (imageIndex > 0) return setImageIndex(imageIndex - 1);
   };
 
   const handleShowNextImage = () => {
-    if (imageIndex === lastIndex) {
-      setImageIndex(0);
-    }
+    if (imageIndex === lastIndex) return setImageIndex(0);
 
-    if (imageIndex < lastIndex) {
-      setImageIndex(imageIndex + 1);
-    }
+    if (imageIndex < lastIndex) return setImageIndex(imageIndex + 1);
   };
 
   const handleSelectLightboxThumbnail = (
