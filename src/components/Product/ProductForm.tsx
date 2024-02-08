@@ -39,6 +39,7 @@ export const ProductForm = ({ onSubmit, state }: ProductFormInputProps) => {
       </label>
       <div className="flex flex-row justify-between rounded-lg bg-grayish-blue bg-opacity-10 px-6 py-4 md:w-2/5">
         <ItemCountButton
+          padding="p-0"
           label="Decrease Item Count"
           disabled={count === 0}
           iconPath={iconMinus}
@@ -58,6 +59,7 @@ export const ProductForm = ({ onSubmit, state }: ProductFormInputProps) => {
           required
         />
         <ItemCountButton
+          padding="p-0"
           label="Increase Item Count"
           iconPath={iconPlus}
           onClick={increment}
