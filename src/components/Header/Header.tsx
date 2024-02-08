@@ -8,7 +8,7 @@ import imgAvatar from "/images/image-avatar.png";
 const BrandLogo = () => {
   return (
     <>
-      <a href="/" aria-label="Homepage">
+      <a href="/ecommerce-product-page/" aria-label="Homepage">
         <img src={brandLogo} width={138} height={20} alt="" />
       </a>
     </>
