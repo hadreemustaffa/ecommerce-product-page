@@ -10,7 +10,7 @@ const Product = ({ children }: PropsWithChildren) => {
       <div className="flex flex-col justify-center gap-4 p-6 md:px-0 lg:basis-1/2">
         <div className="flex flex-col gap-4">
           <p className="font-bold text-orange">SNEAKER COMPANY</p>
-          <h2 className="text-xl font-bold">Fall Limited Edition Sneakers</h2>
+          <h1 className="text-xl font-bold">Fall Limited Edition Sneakers</h1>
           <p className="text-grayish-blue-dark">
             These low-profile sneakers are your perfect casual wear companion.
             Featuring a durable rubber outer sole, they'll withstand everything

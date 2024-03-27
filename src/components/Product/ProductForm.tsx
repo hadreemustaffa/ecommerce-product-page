@@ -48,13 +48,11 @@ export const ProductForm = ({ onSubmit, state }: ProductFormInputProps) => {
         <input
           type="number"
           id="quantityInput"
-          aria-describedby="quantity to buy"
           className="w-fit bg-[transparent] text-center font-bold"
           placeholder="0"
           min={1}
           max={99}
           value={count}
-          size={2}
           onChange={handleChange}
           required
         />
